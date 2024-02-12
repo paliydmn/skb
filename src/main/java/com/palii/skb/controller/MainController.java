@@ -21,7 +21,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,13 +34,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class MainController {
-
     @FXML
     private Button createBtn;
-
     @FXML
     private ListView<Tip> mainListW;
-
     @FXML
     private TextField searchTF;
     @FXML
@@ -51,10 +47,8 @@ public class MainController {
     @FXML
     Label searchResultsLbl;
     @FXML
-    private AnchorPane mainViewRootAnchor;
     public static ObservableList<Tip> tvObservableList = FXCollections.observableArrayList();
     DraggableMaker draggableMaker = new DraggableMaker();
-
     String searchBy = "byBody";
 
     private Stage stage;
@@ -84,8 +78,6 @@ public class MainController {
 
          field = new AutocompletionTextField(searchTF);
          setAllSearchStrArray();
-       // field.getEntries().addAll(searchAutocompleteList);
-
         mainListW.getSelectionModel().selectedItemProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -95,8 +87,6 @@ public class MainController {
     }
 //#ToDo rewrite this function!
     public static void setAllSearchStrArray() {
-//        if (searchAutocompleteList != null && !searchAutocompleteList.isEmpty())
-//            searchAutocompleteList.clear();
         ArrayList<String> list = new ArrayList<String>();
         ResultSet rs = CRUDHelper.findAllInDb();
         while (true) {
@@ -112,7 +102,6 @@ public class MainController {
         }
         field.getEntries().clear();
         field.getEntries().addAll(list);
-     //   return list;
     }
 
     private void stickyAddBtn() {
@@ -136,7 +125,6 @@ public class MainController {
         searchByCmb.setOnAction((event) -> {
             int selectedIndex = searchByCmb.getSelectionModel().getSelectedIndex();
             Object selectedItem = searchByCmb.getSelectionModel().getSelectedItem();
-
             System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
             System.out.println("ComboBox.getValue(): " + searchByCmb.getValue());
             searchBy = searchByCmb.getValue();
@@ -158,12 +146,9 @@ public class MainController {
                 int id = Integer.parseInt(rs.getString("id"));
                 String editDate = rs.getString("edit_date");
                 String createDate = rs.getString("_date");
-                // assert rs.getString("use_count") != null;
                 int useC = Integer.parseInt(rs.getString("use_count"));
-
-                Tip e = new Tip(title, body, id, useC, editDate, createDate);
-                //Tip e = new Tip(title, body, id);
-                tvObservableList.add(e);
+                Tip t = new Tip(title, body, id, useC, editDate, createDate);
+                tvObservableList.add(t);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

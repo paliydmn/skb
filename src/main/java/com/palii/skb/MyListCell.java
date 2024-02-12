@@ -24,8 +24,6 @@ public class MyListCell extends ListCell<Tip> {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/palii/skb/tip_element.fxml"));
             root = loader.load();
             controller = loader.getController();
-
-
         } catch (IOException exc) {
             // this is basically fatal, so just bail here:
             throw new RuntimeException(exc);
@@ -37,7 +35,6 @@ public class MyListCell extends ListCell<Tip> {
         if (empty || item == null) {
             setGraphic(null);
         } else {
-
             controller.setItem(item);
             setGraphic(root);
         }

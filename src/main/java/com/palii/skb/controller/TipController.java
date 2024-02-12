@@ -2,6 +2,7 @@ package com.palii.skb.controller;
 
 import com.palii.skb.model.Tip;
 import com.palii.skb.utils.CRUDHelper;
+import com.palii.skb.utils.Toast;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,10 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.InputMethodEvent;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -42,12 +43,16 @@ public class TipController {
     @FXML
     private Label itemID;
     @FXML
+    private Label tip_pos_item_lbl;
+    @FXML
     private Label editDateLbl;
 
     @FXML
     private Label useCountLbl;
     @FXML
     private Label createDateLbl;
+    @FXML
+    ImageView expand_Img_view;
 
     public void setItem(Tip tip) {
         body_text.setText(tip.getBody());
@@ -58,6 +63,7 @@ public class TipController {
         createDateLbl.setText(tip.getCreatedDate());
     }
 
+    static int num = 0;
     @FXML
     void initialize() {
         System.out.println("Tip:");
@@ -69,24 +75,19 @@ public class TipController {
             if (!o.isEmpty() && !o.equals(n)) {
                 save_edit_btn.setDisable(false);
             }
-            System.out.println(ob);
-            Label l = (Label)save_edit_btn.getParent().getChildrenUnmodifiable().get(0);
-            System.out.println(l.getText());
-            System.out.println(itemID.getText());
-
+            System.out.println(ob.getValue());
             System.out.println("-----------------------------------");
         });
 
-    }
-
+        }
     public void onExpandItem(ActionEvent actionEvent) {
         System.out.println(body_text.getPrefHeight());
         //   body_text.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        if (body_text.getPrefHeight() == 75) {
+        if (body_text.getPrefHeight() == 90) {
             body_text.setPrefHeight((body_text.getParagraphs().size() + 6) * body_text.getFont().getSize());
 
         } else {
-            body_text.setPrefHeight(75);
+            body_text.setPrefHeight(90);
         }
     }
 
@@ -144,6 +145,69 @@ public class TipController {
     }
 
     public void onInputMethodChanged(InputMethodEvent inputMethodEvent) {
+        System.out.println("INPUT -> ");
+    }
 
+    public void onExpandMouseClicked(MouseEvent mouseEvent) {
+        System.out.println(body_text.getPrefHeight());
+        //   body_text.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        if (body_text.getPrefHeight() == 90) {
+            body_text.setPrefHeight((body_text.getParagraphs().size() + 6) * body_text.getFont().getSize());
+
+        } else {
+            body_text.setPrefHeight(90);
+        }
+    }
+
+    public void onCopyMouseClicked(MouseEvent mouseEvent) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(body_text.getText());
+        clipboard.setContent(content);
+
+        String ID = itemID.getText();
+        Tip t = getTips(ID).get(0);
+        int useC = t.getUseCount() + 1;
+        CRUDHelper.updateUsageCount(Integer.parseInt(ID), useC);
+        int index = MainController.tvObservableList.indexOf(t);
+        Tip tip = MainController.tvObservableList.get(index);
+        tip.setUseCount(useC);
+        MainController.tvObservableList.set(index, tip);
+
+        Toast.makeText((Stage) itemID.getScene().getWindow(), body_text.getText());
+
+    }
+
+    public void onSaveMouseClicked(MouseEvent mouseEvent) {
+        System.out.println("Saved");
+        System.out.println(body_text.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String editDate = sdf.format(timestamp);
+
+        int ret = CRUDHelper.updateBody(body_text.getText(), Integer.parseInt(itemID.getText()), editDate);
+        if (ret >= 1)
+            save_edit_btn.setDisable(true);
+
+        String ID = itemID.getText();
+        Tip t = getTips(ID).get(0);
+        int index = MainController.tvObservableList.indexOf(t);
+        Tip tip = MainController.tvObservableList.get(index);
+        tip.setEditedDate(editDate);
+        tip.setBody(body_text.getText());
+        MainController.tvObservableList.set(index, tip);
+        //editDateLbl.setText(editDate);
+        Toast.makeText((Stage) itemID.getScene().getWindow(), "Saved");
+
+    }
+
+    public void onDeleteMouseClicked(MouseEvent mouseEvent) {
+        String ID = itemID.getText();
+        CRUDHelper.deleteItem(Integer.parseInt(ID));
+        System.out.println(Integer.parseInt(ID));
+        ObservableList<Tip> o = getTips(ID);
+        MainController.tvObservableList.remove(o.get(0));
+        MainController.setAllSearchStrArray();
+        Toast.makeText((Stage) tip_item_id.getScene().getWindow(), "Deleted!");
     }
 }

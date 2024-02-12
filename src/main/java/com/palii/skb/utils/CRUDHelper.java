@@ -78,7 +78,7 @@ public class CRUDHelper {
         }
     }
 
-    public static void deleteItem(Integer id) throws SQLException {
+    public static void deleteItem(Integer id) {
         Statement statement = null;
         try {
             statement = Objects.requireNonNull(SQLiteDB.connect()).createStatement();
