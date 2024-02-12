@@ -1,6 +1,4 @@
-package com.example.knowledge_db.utils;
-
-import com.example.knowledge_db.MainApplication;
+package com.palii.skb.utils;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -10,9 +8,18 @@ import java.util.logging.Logger;
 
 public class SQLiteDB {
 
-    private static final String location = Objects.requireNonNull(MainApplication.class.getResource("/database/kdb.db")).toExternalForm();
     private static final String requiredTable = "main";
-
+    private static final String dbPrefix = "jdbc:sqlite:";
+    private static final String DB_NAME = Objects.requireNonNull("kdb.db");
+    private static final String CREATE_DB = "CREATE TABLE \"main\" (\n" +
+            "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
+            "\t\"title\"\tTEXT NOT NULL,\n" +
+            "\t\"body\"\tTEXT,\n" +
+            "\t\"_date\"\tINTEGER NOT NULL,\n" +
+            "\t\"use_count\"\tINTEGER NOT NULL,\n" +
+            "\t\"edit_date\"\tINTEGER,\n" +
+            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+            ")";
     private static boolean checkDrivers() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -23,16 +30,42 @@ public class SQLiteDB {
             return false;
         }
     }
+    public static void createNewDatabase() {
+
+        String url = dbPrefix + DB_NAME;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                DatabaseMetaData meta = conn.getMetaData();
+                System.out.println("The driver name is " + meta.getDriverName());
+                System.out.println("A new database has been created.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void createNewTable() {
+        // SQLite connection string
+        String url = dbPrefix + DB_NAME;
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(CREATE_DB);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     protected static Connection connect() {
-        String dbPrefix = "jdbc:sqlite:";
         Connection connection;
         try {
             //Протокол jdbc для SQLite. Идентификатор jdbc:sqlite: плюс размещение БД
-            connection = DriverManager.getConnection(dbPrefix + location);
+            connection = DriverManager.getConnection(dbPrefix + DB_NAME);
         } catch (SQLException exception) {
             Logger.getAnonymousLogger().log(Level.SEVERE,
-                    LocalDateTime.now() + ": Could not connect to SQLite DB at " + location);
+                    LocalDateTime.now() + ": Could not connect to SQLite DB at " + DB_NAME);
             return null;
         }
         return connection;

@@ -1,54 +1,58 @@
-package com.example.knowledge_db.model;
-
-import java.util.Date;
+package com.palii.skb.model;
 
 public class Tip {
+    private String body;
+    private String title;
+    private String createdDate;
+    private String editedDate;
+    private int useCount;
+    private int id;
 
-    private String text;
-    private Date createdDate;
-    private Date editedDate;
-    private Integer useCount;
-
-    private Integer id;
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-
-    public Tip(String text, Date createdDate, Date editedDate, Integer useCount, Integer id) {
-        this.text = text;
-        this.createdDate = createdDate;
-        this.editedDate = editedDate;
+    public Tip(String title, String body, int useCount) {
+        this.title = title;
+        this.body = body;
         this.useCount = useCount;
+    }
+
+    public Tip(String title, String body, int id, int useCount, String editDate, String createDate) {
+        this.title = title;
+        this.body = body;
         this.id = id;
+        this.useCount = useCount;
+        this.createdDate = createDate;
+        this.editedDate = editDate;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getEditedDate() {
+    public String getEditedDate() {
         return editedDate;
     }
 
-    public void setEditedDate(Date editedDate) {
+    public void setEditedDate(String editedDate) {
         this.editedDate = editedDate;
     }
 
@@ -56,9 +60,17 @@ public class Tip {
         return useCount;
     }
 
-    public void setUseCount(Integer useCount) {
+    public void setUseCount(int useCount) {
         this.useCount = useCount;
     }
 
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
 }

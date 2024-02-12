@@ -1,0 +1,111 @@
+.split-pane-divider {
+    -fx-padding: 0 1 0 1 ;
+    -fx-background-color: #78909C;
+    -fx-background-insets: 0;
+}
+.text-field {
+    -fx-text-fill: #ECEFF1;
+    -fx-font-size: 14px;
+    -fx-background-color: #607D8B;
+}
+ .text-area {
+     -fx-font-size: 14;
+     -fx-text-fill: #ffffff;
+     -fx-display-caret:true;
+ }
+.text-area .content {
+    -fx-background-color: #607D8B;
+}
+.combo-box {
+    -fx-text-fill: #ECEFF1;
+    -fx-font-size: 14px;
+    -fx-background-color:  #607D8B;
+}
+
+/*Edit Normal Cell color */
+ .combo-box .list-cell{
+    -fx-background-color: #607D8B;
+    -fx-text-fill: #ECEFF1;
+    -fx-font-size: 14px;
+}
+
+/*Edit Cell Color Only when cursor hover cell */
+.combo-box .list-cell:hover{
+    -fx-background-color:#CFD8DC;
+    -fx-text-fill: #455A64;
+}
+
+/*Edit Cell Color Only when selected */
+.combo-box .list-cell:selected{
+
+-fx-background-color:#607D8B;
+-fx-text-fill: #263238;
+
+}
+.button:hover {
+    -fx-background-color: #CFD8DC;
+}
+.button {
+-fx-background-color: #B0BEC5;
+
+}
+#createBtn.button {
+-fx-background-color: #78909C;
+
+}
+#createBtn.button:hover {
+-fx-background-color: #CFD8DC;
+
+}
+
+/*  test */
+/*.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+*/
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+  /*  -fx-background-color :transparent;*/
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 5.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+/*    -fx-background-color :transparent;*/
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 5.0 0.0 0.0;
+
+}
+
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color :derive(#78909C,90.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#78909C,50.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}

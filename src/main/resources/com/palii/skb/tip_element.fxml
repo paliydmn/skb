@@ -7,15 +7,17 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="fx_tip_item_id" fx:id="fx_tip_item_id" prefHeight="154.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.knowledge_db.controller.ItemController">
-   <Label id="fx_item_ID_id" fx:id="fx_itemID" disable="true" layoutX="230.0" layoutY="83.0" />
-   <TextField id="fx_tip_item_title_id" fx:id="title_text" prefHeight="26.0" promptText="title" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="5.0">
+<AnchorPane id="tip_item_id" fx:id="fx_tip_item_id" prefHeight="191.0" prefWidth="450.0" style="-fx-background-color: #78909C;" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.palii.skb.controller.TipController">
+   <Label id="fx_item_ID_id" fx:id="itemID" disable="true" layoutX="230.0" layoutY="83.0" />
+   <TextField id="fx_tip_item_title_id" fx:id="title_text" prefHeight="25.0" promptText="title" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="5.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </TextField>
-   <TextArea id="fx_tip_item_body_id" fx:id="body_text" layoutY="28.0" minHeight="-Infinity" prefHeight="75.0" promptText="text" wrapText="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="35.0">
+   <TextArea id="tip_body_id" fx:id="body_text" layoutX="4.8" layoutY="37.4" onInputMethodTextChanged="#onInputMethodChanged" prefHeight="75.0" promptText="text" wrapText="true" AnchorPane.bottomAnchor="57.80000000000001" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="84.80000000000001" AnchorPane.topAnchor="37.4">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
@@ -30,15 +32,74 @@
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </Button>
-   <Button id="fx_tip_save_edit_id" alignment="CENTER" contentDisplay="RIGHT" disable="true" layoutX="536.0" layoutY="60.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="64.0" text="Save" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="65.0">
+   <Button id="save_edit_btn" fx:id="save_edit_btn" alignment="CENTER" contentDisplay="RIGHT" disable="true" layoutX="536.0" layoutY="60.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="26.0" prefWidth="64.0" text="Save" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="65.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </Button>
-   <Separator layoutX="7.0" layoutY="98.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+   <Separator layoutX="4.8" layoutY="148.8" prefWidth="200.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="4.800000000000011" />
    <Button id="fx_tip_delete_id" fx:id="fx_delete_item" alignment="CENTER" contentDisplay="RIGHT" layoutX="489.0" layoutY="101.0" mnemonicParsing="false" onAction="#onDeleteItem" prefHeight="26.0" prefWidth="64.0" text="Delete" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="100.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </Button>
+   <HBox layoutX="10.399999618530273" layoutY="157.39999389648438" prefHeight="18.0" prefWidth="440.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <children>
+         <HBox>
+            <children>
+               <Label text="Created">
+                  <HBox.margin>
+                     <Insets left="5.0" />
+                  </HBox.margin>
+               </Label>
+               <Label fx:id="createDateLbl" prefHeight="18.0" prefWidth="70.0" text="date">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin>
+               </Label>
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Separator orientation="VERTICAL" prefHeight="15.0" prefWidth="6.0" />
+               <Label prefHeight="18.0" prefWidth="42.0" text="Edited">
+                  <HBox.margin>
+                     <Insets left="5.0" />
+                  </HBox.margin>
+               </Label>
+               <Label fx:id="editDateLbl" prefWidth="70.0" text="not edited">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin>
+               </Label>
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Separator orientation="VERTICAL" prefHeight="15.0">
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin></Separator>
+               <Label text="Used times">
+                  <HBox.margin>
+                     <Insets left="5.0" />
+                  </HBox.margin></Label>
+               <Label fx:id="useCountLbl" prefHeight="18.0" prefWidth="54.0" text="0">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin>
+               </Label>
+            </children>
+         </HBox>
+      </children>
+   </HBox>
 </AnchorPane>

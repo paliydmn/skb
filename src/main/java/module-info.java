@@ -9,7 +9,12 @@ module com.example.knowledge_db {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.xerial.sqlitejdbc;
 
-    opens com.example.knowledge_db to javafx.fxml;
-    exports com.example.knowledge_db;
+    opens com.palii.skb to javafx.fxml;
+    exports com.palii.skb;
+    exports com.palii.skb.controller;
+    opens com.palii.skb.controller to javafx.fxml;
+    exports com.palii.skb.model;
+    opens com.palii.skb.model to javafx.fxml;
 }

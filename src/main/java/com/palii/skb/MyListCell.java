@@ -1,7 +1,7 @@
-package com.example.knowledge_db;
+package com.palii.skb;
 
-import com.example.knowledge_db.controller.ItemController;
-import com.example.knowledge_db.model.Tip;
+import com.palii.skb.controller.TipController;
+import com.palii.skb.model.Tip;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -11,8 +11,8 @@ import java.io.IOException;
 
 public class MyListCell extends ListCell<Tip> {
 
-    private AnchorPane root;
-    private ItemController controller ;
+    private final AnchorPane root;
+    private final TipController controller ;
 
     @Override
     public Node getStyleableNode() {
@@ -21,9 +21,11 @@ public class MyListCell extends ListCell<Tip> {
 
     public MyListCell() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/knowledge_db/tip_element.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/palii/skb/tip_element.fxml"));
             root = loader.load();
-            ItemController tipItemController = loader.getController();
+            controller = loader.getController();
+
+
         } catch (IOException exc) {
             // this is basically fatal, so just bail here:
             throw new RuntimeException(exc);
@@ -36,7 +38,7 @@ public class MyListCell extends ListCell<Tip> {
             setGraphic(null);
         } else {
 
-            //ItemController.setItem(item);
+            controller.setItem(item);
             setGraphic(root);
         }
     }
