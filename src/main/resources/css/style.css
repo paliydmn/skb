@@ -46,16 +46,50 @@
     -fx-background-color: #CFD8DC;
 }
 .button {
--fx-background-color: #B0BEC5;
-
+    -fx-background-color: #B0BEC5;
 }
+
+
+/*.image-view {
+    -fx-cursor: hand;
+}*/
+.stack-pane:hover {
+    -fx-background-color: #CFD8DC;
+}
+
+.stack-pane:pressed {
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+
 #createBtn.button {
--fx-background-color: #78909C;
-
+    -fx-background-color: #78909C;
 }
-#createBtn.button:hover {
--fx-background-color: #CFD8DC;
 
+#createBtn.button:hover {
+    -fx-background-color: #CFD8DC;
+}
+
+#tip_expand_btn.button {
+    -fx-background-image: url("../icons/arrows_expand_right_alt_icon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size:contain;
+/*'auto', 'cover', 'contain', or  'stretch'*/
+}
+#tip_copy_btn.button {
+    -fx-background-image: url("../icons/copy_icon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size:contain;
+}
+#save_edit_btn.button {
+    -fx-background-image: url("../icons/save_fill_data_icon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size:contain;
+}
+#tip_delete_btn.button {
+    -fx-background-image: url("../icons/trash_can_delete_remove_icon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size:contain;
 }
 
 /*  test */

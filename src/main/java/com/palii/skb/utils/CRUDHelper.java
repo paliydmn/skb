@@ -115,12 +115,12 @@ public class CRUDHelper {
         try {
             statement = Objects.requireNonNull(SQLiteDB.connect()).createStatement();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String ts = sdf.format(timestamp);
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            String ts = sdf.format(timestamp);
             String sql = "UPDATE main SET body='" +
-                    body + "', edit_date=" + eDate +
-                    " WHERE id=" + id + (";");
+                    body + "', edit_date='" + eDate +
+                    "' WHERE id=" + id + (";");
             return statement.executeUpdate(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);

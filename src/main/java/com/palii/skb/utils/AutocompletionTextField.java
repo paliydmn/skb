@@ -70,8 +70,14 @@ public class AutocompletionTextField {
         int count = Math.min(searchResult.size(), maxEntries);
         //Build list as set of labels
         for (int i = 0; i < count; i++) {
-          final String result = searchResult.get(i);
-          //label with graphic (text flow) to highlight founded subtext in suggestions
+            String tmp;
+            if (searchResult.get(i).length() >= 50) {
+                tmp = searchResult.get(i).substring(0, 49);
+            } else {
+                tmp = searchResult.get(i);
+            }
+            final String result = tmp;
+            //label with graphic (text flow) to highlight founded subtext in suggestions
           Label entryLabel = new Label();
           entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
           entryLabel.setPrefHeight(10);  //don't sure why it's changed with "graphic"

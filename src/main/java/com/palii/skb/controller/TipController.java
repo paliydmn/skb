@@ -12,7 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -54,6 +57,9 @@ public class TipController {
     @FXML
     ImageView expand_Img_view;
 
+    @FXML
+    ImageView save_tip_image_view;
+
     public void setItem(Tip tip) {
         body_text.setText(tip.getBody());
         title_text.setText(tip.getTitle());
@@ -61,6 +67,7 @@ public class TipController {
         useCountLbl.setText(String.valueOf(tip.getUseCount()));
         editDateLbl.setText(tip.getEditedDate());
         createDateLbl.setText(tip.getCreatedDate());
+        save_tip_image_view.setDisable(true);
     }
 
     static int num = 0;
@@ -70,14 +77,15 @@ public class TipController {
         System.out.println(this);
         body_text.textProperty().addListener((ob, o, n) -> {
             // TODO here
-            System.out.println("Old " + o);
-            System.out.println("New " + n);
+//            System.out.println("Old " + o);
+//            System.out.println("New " + n);
             if (!o.isEmpty() && !o.equals(n)) {
                 save_edit_btn.setDisable(false);
+                save_tip_image_view.setDisable(false);
             }
-            System.out.println(ob.getValue());
-            System.out.println("-----------------------------------");
         });
+
+
 
         }
     public void onExpandItem(ActionEvent actionEvent) {
