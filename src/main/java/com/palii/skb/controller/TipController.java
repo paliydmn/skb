@@ -6,6 +6,7 @@ import com.palii.skb.utils.Toast;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,33 +68,30 @@ public class TipController {
         useCountLbl.setText(String.valueOf(tip.getUseCount()));
         editDateLbl.setText(tip.getEditedDate());
         createDateLbl.setText(tip.getCreatedDate());
-        save_tip_image_view.setDisable(true);
-    }
 
+    }
     static int num = 0;
     @FXML
     void initialize() {
-        System.out.println("Tip:");
-        System.out.println(this);
-        body_text.textProperty().addListener((ob, o, n) -> {
-            // TODO here
-//            System.out.println("Old " + o);
-//            System.out.println("New " + n);
-            if (!o.isEmpty() && !o.equals(n)) {
-                save_edit_btn.setDisable(false);
-                save_tip_image_view.setDisable(false);
+        System.out.println("Tip Init:");
+//        System.out.println(this);
+        body_text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println(mouseEvent);
+                body_text.textProperty().addListener((ob, o, n) -> {
+                    if (!o.isEmpty() && !o.equals(n)) {
+                        save_edit_btn.setDisable(false);
+                        save_tip_image_view.setDisable(false);
+                    }
+                });
             }
         });
-
-
-
-        }
+    }
     public void onExpandItem(ActionEvent actionEvent) {
         System.out.println(body_text.getPrefHeight());
-        //   body_text.setPrefHeight(Region.USE_COMPUTED_SIZE);
         if (body_text.getPrefHeight() == 90) {
             body_text.setPrefHeight((body_text.getParagraphs().size() + 6) * body_text.getFont().getSize());
-
         } else {
             body_text.setPrefHeight(90);
         }
@@ -113,6 +111,10 @@ public class TipController {
         Tip tip = MainController.tvObservableList.get(index);
         tip.setUseCount(useC);
         MainController.tvObservableList.set(index, tip);
+        MainController.tvMostUsedObsList.set(index, tip);
+        MainController.refreshMostUsed();
+
+        Toast.makeText((Stage) itemID.getScene().getWindow(), body_text.getText());
     }
 
     public void onDeleteItem(ActionEvent actionEvent) throws SQLException {
@@ -123,6 +125,7 @@ public class TipController {
         ObservableList<Tip> o = getTips(ID);
         MainController.tvObservableList.remove(o.get(0));
         MainController.setAllSearchStrArray();
+        Toast.makeText((Stage) save_tip_image_view.getScene().getWindow(), "Deleted!");
     }
 
     private static ObservableList<Tip> getTips(String ID) {
@@ -149,7 +152,7 @@ public class TipController {
         tip.setEditedDate(editDate);
         tip.setBody(body_text.getText());
         MainController.tvObservableList.set(index, tip);
-        //editDateLbl.setText(editDate);
+        Toast.makeText((Stage) itemID.getScene().getWindow(), "Saved");
     }
 
     public void onInputMethodChanged(InputMethodEvent inputMethodEvent) {
@@ -183,7 +186,6 @@ public class TipController {
         MainController.tvObservableList.set(index, tip);
 
         Toast.makeText((Stage) itemID.getScene().getWindow(), body_text.getText());
-
     }
 
     public void onSaveMouseClicked(MouseEvent mouseEvent) {

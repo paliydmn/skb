@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="tip_item_id" fx:id="fx_tip_item_id" prefWidth="450.0" style="-fx-background-color: #78909C;" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.palii.skb.controller.TipController">
-   <Label id="fx_item_ID_id" fx:id="itemID" disable="true" layoutX="230.0" layoutY="83.0" />
+   <Label id="fx_item_ID_id" fx:id="itemID" disable="true" layoutX="230.0" layoutY="83.0" AnchorPane.bottomAnchor="100.0" AnchorPane.topAnchor="80.0" />
    <TextField id="fx_tip_item_title_id" fx:id="title_text" prefHeight="25.0" promptText="title" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="5.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -26,22 +26,22 @@
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </TextArea>
-   <Button id="tip_expand_btn" fx:id="expand_btn" layoutX="536.0" mnemonicParsing="false" onAction="#onExpandItem" prefHeight="28.0" prefWidth="28.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="5.0">
+   <Button id="tip_expand_btn" fx:id="expand_btn" layoutX="536.0" mnemonicParsing="false" onAction="#onExpandItem" prefHeight="32.0" prefWidth="32.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="5.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </Button>
-   <Button id="tip_copy_btn" fx:id="copy_btn" alignment="CENTER" contentDisplay="RIGHT" layoutX="536.0" layoutY="30.0" mnemonicParsing="false" onAction="#onCopyItem" prefHeight="28.0" prefWidth="28.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="35.0">
+   <Button id="tip_copy_btn" fx:id="copy_btn" alignment="CENTER" contentDisplay="RIGHT" layoutX="536.0" layoutY="30.0" mnemonicParsing="false" onAction="#onCopyItem" prefHeight="32.0" prefWidth="32.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="42.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </Button>
-   <Button id="save_edit_btn" fx:id="save_edit_btn" alignment="CENTER" contentDisplay="RIGHT" disable="true" layoutX="536.0" layoutY="60.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="28.0" prefWidth="28.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="65.0">
+   <Button id="save_edit_btn" fx:id="save_edit_btn" alignment="CENTER" contentDisplay="RIGHT" disable="true" layoutX="536.0" layoutY="60.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="32.0" prefWidth="32.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="79.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>
    </Button>
-   <Button id="tip_delete_btn" fx:id="fx_delete_item" alignment="CENTER" contentDisplay="RIGHT" layoutX="489.0" layoutY="101.0" mnemonicParsing="false" onAction="#onDeleteItem" prefHeight="28.0" prefWidth="28.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0">
+   <Button id="tip_delete_btn" fx:id="fx_delete_item" alignment="CENTER" contentDisplay="RIGHT" layoutX="489.0" layoutY="101.0" mnemonicParsing="false" onAction="#onDeleteItem" prefHeight="32.0" prefWidth="32.0" stylesheets="@../../../css/style.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="116.0">
       <opaqueInsets>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </opaqueInsets>

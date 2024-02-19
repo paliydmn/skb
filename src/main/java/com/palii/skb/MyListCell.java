@@ -19,9 +19,9 @@ public class MyListCell extends ListCell<Tip> {
         return super.getStyleableNode();
     }
 
-    public MyListCell() {
+    public MyListCell(String fxml_view) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/palii/skb/tip_element.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/palii/skb/" + fxml_view));
             root = loader.load();
             controller = loader.getController();
         } catch (IOException exc) {

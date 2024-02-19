@@ -16,7 +16,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -30,14 +33,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainController {
-    @FXML
-    private Button createBtn;
+
     @FXML
     private ListView<Tip> mainListW;
+    @FXML
+    private ListView<Tip> mostUsedListView;
     @FXML
     private TextField searchTF;
     @FXML
@@ -47,11 +51,16 @@ public class MainController {
     @FXML
     Label searchResultsLbl;
     @FXML
+    Label tipsInDbLabel;
+    @FXML
     public static ObservableList<Tip> tvObservableList = FXCollections.observableArrayList();
+    @FXML
+    public static ObservableList<Tip> tvMostUsedObsList = FXCollections.observableArrayList();
     DraggableMaker draggableMaker = new DraggableMaker();
     String searchBy = "byBody";
 
     private Stage stage;
+    static AutocompletionTextField field;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -59,22 +68,18 @@ public class MainController {
         keyCombHandling();
     }
 
-    public static Collection<String> searchAutocompleteList;
-    static AutocompletionTextField field;
-
     @FXML
     void initialize() {
         System.out.println(this);
         initSearchDropDown();
-        //mainListW.setCellFactory();
         draggableMaker.makeDraggable(addBtnPaneDrag);
 
-        mainListW.setCellFactory(mainListW -> {
-            return new MyListCell();
-        });
+        mainListW.setCellFactory(mainListW -> new MyListCell("tip_element.fxml"));
+        mostUsedListView.setCellFactory(mainListW -> new MyListCell("tip_element_short.fxml"));
         mainListW.setItems(tvObservableList);
+        mostUsedListView.setItems(tvMostUsedObsList);
         refreshUI();
-
+        refreshMostUsed();
 
          field = new AutocompletionTextField(searchTF);
          setAllSearchStrArray();
@@ -100,6 +105,11 @@ public class MainController {
                 throw new RuntimeException(e);
             }
         }
+        try {
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         field.getEntries().clear();
         field.getEntries().addAll(list);
     }
@@ -118,9 +128,9 @@ public class MainController {
     }
 
     private void initSearchDropDown() {
+        searchByCmb.getItems().add("byBody&Title");
         searchByCmb.getItems().add("byBody");
         searchByCmb.getItems().add("byTitle");
-        searchByCmb.getItems().add("byBody&Title");
         searchByCmb.getSelectionModel().selectFirst();
         searchByCmb.setOnAction((event) -> {
             int selectedIndex = searchByCmb.getSelectionModel().getSelectedIndex();
@@ -131,29 +141,45 @@ public class MainController {
         });
     }
 
-    public void addToList(String title, String body) {
-        tvObservableList.add(new Tip(title, body, 0));
-    }
-
     public void refreshUI() {
         ResultSet rs = CRUDHelper.readAllFromMain();
         tvObservableList.clear();
         while (true) {
             try {
                 if (!rs.next()) break;
+                int id = Integer.parseInt(rs.getString("id"));
                 String body = rs.getString("body");
                 String title = rs.getString("title");
-                int id = Integer.parseInt(rs.getString("id"));
+                int useC = Integer.parseInt(rs.getString("use_count"));
                 String editDate = rs.getString("edit_date");
                 String createDate = rs.getString("_date");
-                int useC = Integer.parseInt(rs.getString("use_count"));
-                Tip t = new Tip(title, body, id, useC, editDate, createDate);
-                tvObservableList.add(t);
+                tvObservableList.add(new Tip(title, body, id, useC, editDate, createDate));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
+        try {
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        tipsInDbLabel.setText(String.valueOf(tvObservableList.size()));
+        refreshMostUsed();
+    }
 
+    public static void refreshMostUsed() {
+        tvMostUsedObsList.clear();
+        tvMostUsedObsList.addAll(tvObservableList);
+        tvMostUsedObsList.sort(new Comparator<Tip>() {
+            @Override
+            public int compare(Tip o1, Tip o2) {
+                if (o1.getUseCount() > o2.getUseCount()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
     }
 
     @FXML
@@ -177,6 +203,7 @@ public class MainController {
 
     @FXML
     void onSearch(ActionEvent event) {
+
         int c = 0;
         try (ResultSet rs = CRUDHelper.findAllLikeBy(searchTF.getText(), searchBy)) {
             tvObservableList.clear();

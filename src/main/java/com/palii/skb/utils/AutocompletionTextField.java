@@ -1,5 +1,6 @@
 package com.palii.skb.utils;
 
+import com.palii.skb.controller.MainController;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -71,12 +72,12 @@ public class AutocompletionTextField {
         //Build list as set of labels
         for (int i = 0; i < count; i++) {
             String tmp;
-            if (searchResult.get(i).length() >= 50) {
-                tmp = searchResult.get(i).substring(0, 49);
+            if (searchResult.get(i).length() >= 70) {
+                tmp = searchResult.get(i).substring(0, 69);
             } else {
                 tmp = searchResult.get(i);
             }
-            final String result = tmp;
+            final String result = tmp.trim();
             //label with graphic (text flow) to highlight founded subtext in suggestions
           Label entryLabel = new Label();
           entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
@@ -87,6 +88,8 @@ public class AutocompletionTextField {
           item.setOnAction(actionEvent -> {
               searchTF.setText(result);
               searchTF.positionCaret(result.length());
+              //Auto search by click on tip result
+              searchTF.fireEvent(actionEvent);
               entriesPopup.hide();
           });
         }

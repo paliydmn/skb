@@ -26,7 +26,7 @@ public class MainApplication extends Application {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        Scene scene = new Scene(fxmlLoader.load(), 750, 650);
         stage.setTitle("Simple Knowledge DB!");
         stage.setScene(scene);
         stage.show();

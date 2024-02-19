@@ -73,4 +73,15 @@ public class Tip {
         this.title = title;
     }
 
+    @Override
+    public String toString() {
+        return "Tip{" +
+                "body='" + body + '\'' +
+                ", title='" + title + '\'' +
+                ", createdDate='" + createdDate + '\'' +
+                ", editedDate='" + editedDate + '\'' +
+                ", useCount=" + useCount +
+                ", id=" + id +
+                '}';
+    }
 }

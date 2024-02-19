@@ -103,6 +103,7 @@ public class SQLiteDB {
             while (rs.next()) {
                 if (rs.getString("tbl_name").equals(requiredTable)) return true;
             }
+            rs.close();
         } catch (SQLException exception) {
             Logger.getAnonymousLogger().log(Level.SEVERE, LocalDateTime.now() + ": Could not find tables in database");
             return false;

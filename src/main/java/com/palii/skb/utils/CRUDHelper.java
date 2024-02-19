@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class CRUDHelper {
+
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
     public static ResultSet readAllFromMain() {
         try {
             Statement statement = Objects.requireNonNull(SQLiteDB.connect()).createStatement();
@@ -64,15 +67,15 @@ public class CRUDHelper {
         Statement statement = null;
         try {
             statement = Objects.requireNonNull(SQLiteDB.connect()).createStatement();
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String ts = sdf.format(timestamp);
-            String sql = "INSERT INTO main (title, body, _date, use_count) VALUES ('" + title +
-                    "', '" + body +
+            String sql = "INSERT INTO main (title, body, _date, use_count) VALUES ('" + title.replace("'", "''") +
+                    "', '" + body.replace("'", "''") +
                     "','" + ts + "'," + 0 +
                     ");";
+
             statement.executeUpdate(sql);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -97,8 +100,6 @@ public class CRUDHelper {
         Statement statement = null;
         try {
             statement = Objects.requireNonNull(SQLiteDB.connect()).createStatement();
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String ts = sdf.format(timestamp);
             String sql = "UPDATE main SET use_count=" +
@@ -114,12 +115,8 @@ public class CRUDHelper {
         Statement statement = null;
         try {
             statement = Objects.requireNonNull(SQLiteDB.connect()).createStatement();
-
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//            String ts = sdf.format(timestamp);
             String sql = "UPDATE main SET body='" +
-                    body + "', edit_date='" + eDate +
+                    body.replace("'", "''") + "', edit_date='" + eDate +
                     "' WHERE id=" + id + (";");
             return statement.executeUpdate(sql);
         } catch (SQLException e) {
