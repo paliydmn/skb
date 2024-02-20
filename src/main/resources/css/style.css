@@ -1,5 +1,5 @@
 .split-pane-divider {
-    -fx-padding: 0 1 0 1 ;
+    -fx-padding: 0 2 0 2;
     -fx-background-color: #78909C;
     -fx-background-insets: 0;
 }
@@ -63,11 +63,14 @@
 }
 
 #createBtn.button {
-    -fx-background-color: #78909C;
+    -fx-background-color: #00796B;
+    /*-fx-background-color: #78909C;*/
 }
 
 #createBtn.button:hover {
-    -fx-background-color: #CFD8DC;
+    -fx-background-color: #26A69A;
+    -fx-text-fill: #000000;
+    /*-fx-background-color: #CFD8DC;*/
 }
 
 #tip_expand_btn.button {

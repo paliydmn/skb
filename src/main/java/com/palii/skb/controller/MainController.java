@@ -57,8 +57,6 @@ public class MainController {
     @FXML
     public static ObservableList<Tip> tvMostUsedObsList = FXCollections.observableArrayList();
     DraggableMaker draggableMaker = new DraggableMaker();
-    String searchBy = "byBody";
-
     private Stage stage;
     static AutocompletionTextField field;
 
@@ -71,7 +69,7 @@ public class MainController {
     @FXML
     void initialize() {
         System.out.println(this);
-        initSearchDropDown();
+
         draggableMaker.makeDraggable(addBtnPaneDrag);
 
         mainListW.setCellFactory(mainListW -> new MyListCell("tip_element.fxml"));
@@ -89,6 +87,7 @@ public class MainController {
                 System.out.println("ListView selection -> for tests ");
             }
         });
+        initSearchDropDown();
     }
 //#ToDo rewrite this function!
     public static void setAllSearchStrArray() {
@@ -137,8 +136,8 @@ public class MainController {
             Object selectedItem = searchByCmb.getSelectionModel().getSelectedItem();
             System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
             System.out.println("ComboBox.getValue(): " + searchByCmb.getValue());
-            searchBy = searchByCmb.getValue();
         });
+
     }
 
     public void refreshUI() {
@@ -203,9 +202,8 @@ public class MainController {
 
     @FXML
     void onSearch(ActionEvent event) {
-
         int c = 0;
-        try (ResultSet rs = CRUDHelper.findAllLikeBy(searchTF.getText(), searchBy)) {
+        try (ResultSet rs = CRUDHelper.findAllLikeBy(searchTF.getText(), searchByCmb.getValue())) {
             tvObservableList.clear();
             while (true) {
                 try {
