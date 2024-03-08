@@ -172,11 +172,9 @@ public class MainController {
         tvMostUsedObsList.sort(new Comparator<Tip>() {
             @Override
             public int compare(Tip o1, Tip o2) {
-                if (o1.getUseCount() > o2.getUseCount()) {
-                    return -1;
-                } else {
-                    return 1;
-                }
+                int c = o1.getUseCount();
+                int c1 = o2.getUseCount();
+                return Integer.compare(c1, c);
             }
         });
     }

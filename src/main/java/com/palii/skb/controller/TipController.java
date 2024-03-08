@@ -73,8 +73,6 @@ public class TipController {
     static int num = 0;
     @FXML
     void initialize() {
-        System.out.println("Tip Init:");
-//        System.out.println(this);
         body_text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

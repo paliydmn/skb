@@ -11,16 +11,6 @@ public class SQLiteDB {
     private static final String requiredTable = "main";
     private static final String dbPrefix = "jdbc:sqlite:";
     private static final String DB_NAME = Objects.requireNonNull("kdb.db");
-//    private static final String CREATE_DB = "CREATE TABLE \"main\" (\n" +
-//            "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
-//            "\t\"title\"\tTEXT NOT NULL,\n" +
-//            "\t\"body\"\tTEXT,\n" +
-//            "\t\"_date\"\tINTEGER NOT NULL,\n" +
-//            "\t\"use_count\"\tINTEGER NOT NULL,\n" +
-//            "\t\"edit_date\"\tINTEGER,\n" +
-//            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
-//            ")";
-
      private static final String CREATE_DB = "CREATE TABLE IF NOT EXISTS \"main\" (\n" +
              "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
              "\t\"title\"\tTEXT NOT NULL,\n" +
