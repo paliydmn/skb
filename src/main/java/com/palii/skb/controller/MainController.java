@@ -229,9 +229,10 @@ public class MainController {
     private void keyCombHandling() {
         mainListW.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             final KeyCombination keyCombAddNew = new KeyCodeCombination(KeyCode.N,
-                    KeyCombination.CONTROL_ANY);
+                    KeyCombination.CONTROL_DOWN);
 
             public void handle(KeyEvent ke) {
+               // if (KeyCode.N.equals(ke.getCode()) && ke.isControlDown()) {
                 if (keyCombAddNew.match(ke)) {
                     System.out.println("Key Pressed: " + keyCombAddNew);
                     try {
